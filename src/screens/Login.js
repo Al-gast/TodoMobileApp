@@ -52,12 +52,12 @@ export default function Login({navigation}) {
     return (
         <View style={style.container}>
             <StatusBar />
-            <view style={{display:'flex', justifyContent:'center'}}>
+            <View style={{display:'flex', justifyContent:'center', alignItems:'center', marginBottom:35}}>
             <Image
               source={{ uri: 'https://res.cloudinary.com/agastyo-atallah-al-ardhi/image/upload/v1661432753/TodoApp/Login_Icon_uduhfe.png'}}
-              style={{width:256, height:183, textAlign:'center'}}
+              style={{width:256, height:183}}
             />
-            </view>
+            </View>
 
             <Text style={style.header}>Login</Text>
 
@@ -71,7 +71,7 @@ export default function Login({navigation}) {
                 />
             </View>
 
-            <View>
+            <View style={{marginBottom:30}}>
                 <Text style={style.labelText}>Password</Text>
                 <TextInput
                     style={style.textInput}
@@ -103,7 +103,7 @@ const style = StyleSheet.create({
     color: 'black',
     fontSize: 25,
     fontWeight: 'bold',
-    marginBottom: '1rem'
+    marginBottom: 15
   },
   labelText: {
     color: 'grey',

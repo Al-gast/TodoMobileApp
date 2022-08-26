@@ -53,18 +53,18 @@ export default function Login({navigation}) {
         <View style={style.container}>
             <StatusBar />
 
-            <view style={{display:'flex', justifyContent:'center'}}>
+            <View style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
             <Image
               source={{ uri: 'https://res.cloudinary.com/agastyo-atallah-al-ardhi/image/upload/v1661444001/TodoApp/accept-request_1_vucipg.svg'}}
-              style={{width:256, height:183, textAlign:'center'}}
+              style={{width:228, height:258}}
             />
-            </view>
+            </View>
 
             <Text style={style.header}>Ways <Text style={{color:'#B82020'}}>To</Text><Text style={{color:'#FF5555'}}>DO</Text></Text>
 
-            <View>
-                <Text style={{textAlign:'center', fontSize:12, paddingStart: '3.5rem', paddingEnd: '3.5rem'}}>
-                    Write your activity and finish your activity. Fast, simple and easy to youse 
+            <View style={{marginBottom:60}}>
+                <Text style={{textAlign:'center', fontSize:12, paddingStart: 55, paddingEnd: 55}}>
+                    Write your activity and finish your activity. Fast, simple and easy to youse
                 </Text>
             </View>
 
@@ -93,7 +93,7 @@ const style = StyleSheet.create({
     color: 'black',
     fontSize: 35,
     fontWeight: 'bold',
-    marginBottom: '1rem',
+    marginBottom: 15,
     textAlign:'center'
   },
   labelText: {

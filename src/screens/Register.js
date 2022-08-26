@@ -52,12 +52,12 @@ export default function Register({navigation}) {
 
             <StatusBar />
 
-            <view style={{display:'flex', justifyContent:'center'}}>
+            <View style={{display:'flex', justifyContent:'center', alignItems:'center', marginBottom:35}}>
             <Image
               source={{ uri: 'https://res.cloudinary.com/agastyo-atallah-al-ardhi/image/upload/v1661432753/TodoApp/Login_Icon_uduhfe.png'}}
-              style={{width:256, height:183, textAlign:'center'}}
+              style={{width:256, height:183}}
             />
-            </view>
+            </View>
 
             <Text style={style.header}>Register</Text>
             <View>
@@ -79,7 +79,7 @@ export default function Register({navigation}) {
                 />
             </View>
 
-            <View>
+            <View style={{marginBottom:30}}>
                 <Text style={style.labelText}>Password</Text>
                 <TextInput
                     style={style.textInput}
