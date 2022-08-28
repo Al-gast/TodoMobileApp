@@ -1,60 +1,42 @@
 import { StatusBar } from "expo-status-bar";
-import { Dropdown } from 'react-native-element-dropdown';
+import { FlatList } from "react-native-gesture-handler";
 import React,{useState} from "react";
 import {Image, View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import axios from 'axios'
-import { Directions } from "react-native-gesture-handler";
 import TodoCategory from "../component/TodoCategory";
 import TodoStatus from "../component/TodoStatus";
 
 export default function Login({navigation}) {
-    const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
+
+  const todos = [
+    {
+        title: 'Belajar Golang',
+        desc: 'Sinau masxeh'
+    },
+    {
+        title: 'Kerjain PR',
+        desc: 'Sinau masxeh'
+    },
+    {
+        title: 'Beli Sayur',
+        desc: 'Sinau masxeh'
+    },
+    {
+        title: 'Healing',
+        desc: 'Sinau masxeh'
+    },
+    {
+        title: 'Healing',
+        desc: 'Sinau masxeh'
+    },
+]
+
 
     const [form, setForm] = useState({
         email: '',
         password: '',
     });
-
-    const [isLoading, setIsLoading] = useState(false);
-    const handleOnChange = (name, value) => {
-        setForm({
-            ...form,
-            [name]: value,
-        });
-    };
-
-    const handleOnPress = async () => {
-        try {
-            const config = {
-                headers: {
-                'Content-type': 'application/json',
-                },
-            };
-
-            const body = JSON.stringify(form);
-            setIsLoading(true)
-            const response = await axios.post('https://api.kontenbase.com/query/api/v1/0b5806cc-db6b-4088-bbfc-f6368c72c166/auth/login', body, config);
-            // console.log(response);
-            setIsLoading(false)
-            if (response) {
-                await AsyncStorage.setItem('token', response.data.token);
-            }
-
-            const value = await AsyncStorage.getItem('token');
-            if (value !== null) {
-                console.log(value);
-                navigation.navigate("Users")
-            }
-
-        } catch (error) {
-            console.log(error);
-            alert(error.response.data.message);
-            setIsLoading(false)
-
-        }
-    };
 
     return (
         <View style={style.container}>
@@ -98,24 +80,32 @@ export default function Login({navigation}) {
                             <TodoStatus/>
                         </View>
                 </View>
-
             </View>
             <View>
                 <Text style={style.header}>List Category</Text>
-                <View style={style.card}>
-                  <View>
-                      <Text style={{fontWeight: 'bold', marginBottom: 5}}>Study-Golang</Text>
-                      <Text style={style.cardDescription}>Learn Golang to Improve
-                      fundamentals and familiarize with coding</Text>
-                  </View>
-                  <View style={{width: 50}}>
+                  <FlatList
+                  data={todos}
+                  key={item => item.index}
+                  renderItem={({item})=>(
+                    <TouchableOpacity onPress={()=> navigation.navigate("DetailList")}>
+                      <Text className="font-bold text-[18px] mb-3">{item.title}</Text>
+                                    <Text>{item.desc}</Text>
+                      {/* <View style={style.card}>
+                      <View>
+                      <Text style={{fontWeight: 'bold', marginBottom: 5}}>{item.title}</Text>
+                      <Text style={style.cardDescription}>{item.desc}</Text>
+                      </View>
+                      <View style={{width: 50}}>
                       <TouchableOpacity style={style.CardTitle}>
                           <Text style={{fontSize: 10, fontWeight: 'bold', textAlign: 'center'}}>Study</Text>
                       </TouchableOpacity >
                       <TouchableOpacity style={style.Omark}>
                       </TouchableOpacity >
                   </View>
-              </View>
+                  </View> */}
+                    </TouchableOpacity>
+                  )}
+                  />
             </View>
 
         </View>

@@ -41,7 +41,7 @@ function MyTab () {
             })
         }
         >
-            <Tab.Screen name='ListTodo' component={ListToDo}/>
+            <Tab.Screen name='ListToDo' component={ListToDo}/>
             <Tab.Screen name='AddList' component={AddList}/>
             <Tab.Screen name='AddCategory' component={AddCategory}/>
         </Tab.Navigator>
