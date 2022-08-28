@@ -20,7 +20,7 @@ const Users = ({navigation}) => {
             const config = {
                 headers: {
                   'Content-type': 'application/json',
-                  Authorization: 'Bearer ' + token 
+                  Authorization: 'Bearer ' + token
                 },
             };
     
@@ -61,7 +61,7 @@ const Users = ({navigation}) => {
                 <Text style={{color: 'red', fontSize: 18, fontWeight: 'bold'}}>Logout</Text>
             </TouchableOpacity>
             <View style={{display: 'flex', alignItems: 'center'}}>
-                <Text 
+                <Text
                     style={{
                         textAlign: 'center',
                         fontWeight: 'bold',

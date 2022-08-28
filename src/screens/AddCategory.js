@@ -1,10 +1,21 @@
 import { StatusBar } from "expo-status-bar";
+import { Dropdown } from 'react-native-element-dropdown';
 import React,{useState} from "react";
 import {Image, View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
+import { Directions } from "react-native-gesture-handler";
+
+const category = [
+    {label:'Study', value:'1'},
+    {label:'Home Work', value:'2'},
+    {label:'Workout', value:'3'}
+]
 
 export default function Login({navigation}) {
+    const [value, setValue] = useState(null);
+    const [isFocus, setIsFocus] = useState(false);
+
     const [form, setForm] = useState({
         email: '',
         password: '',
@@ -52,40 +63,31 @@ export default function Login({navigation}) {
     return (
         <View style={style.container}>
             <StatusBar />
-            <View style={{display:'flex', justifyContent:'center', alignItems:'center', marginBottom:35}}>
-            <Image
-                source={{ uri: 'https://res.cloudinary.com/agastyo-atallah-al-ardhi/image/upload/v1661432753/TodoApp/Login_Icon_uduhfe.png'}}
-                style={{width:256, height:183}}
-            />
+
+            <View style={{marginBottom:50}}>
+
+            <Text style={style.header}>Add List</Text>
+                <View>
+                    <TextInput
+                        style={style.textInput}
+                        placeholder="Name"
+                        onChangeText={(value) => handleOnChange('name', value)}
+                        value={form.name}
+                    />
+                </View>
+
+                <TouchableOpacity style={style.button} onPress={handleOnPress}>
+                    {
+                        isLoading ? <Text style={style.textButton}>Add Category ...</Text> : <Text style={style.textButton}>Add Category</Text>
+                    }
+                </TouchableOpacity>
+
             </View>
-
-            <Text style={style.header}>Login</Text>
-
             <View>
-                <TextInput
-                    style={style.textInput}
-                    placeholder="email"
-                    onChangeText={(value) => handleOnChange('email', value)}
-                    value={form.email}
-                />
+
+                <Text style={style.header}>List Category</Text>
             </View>
 
-            <View style={{marginBottom:30}}>
-                <TextInput
-                    style={style.textInput}
-                    secureTextEntry={true}
-                    placeholder="password"
-                    onChangeText={(value) => handleOnChange('password', value)}
-                    value={form.password}
-                />
-            </View>
-
-            <TouchableOpacity style={style.button} onPress={handleOnPress}>
-                {
-                    isLoading ? <Text style={style.textButton}>Loading ...</Text> : <Text style={style.textButton}>Login</Text>
-                }
-            </TouchableOpacity>
-            <Text onPress={() => navigation.navigate("Register")} style={{color: 'grey', marginTop: 15, textAlign:'center'}}>New User? <Text style={{fontWeight: 'bold', color:'#FF5555', marginTop: 15}}>Register!</Text></Text>
         </View>
     );
 }
@@ -94,8 +96,7 @@ export default function Login({navigation}) {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
-    justifyContent: 'center'
+    padding: 30
   },
   header: {
     color: 'black',
@@ -116,7 +117,16 @@ const style = StyleSheet.create({
     marginBottom: 12,
     color: 'grey',
     padding: 10,
-    borderColor: 'grey'
+    borderColor: 'grey',
+  },
+  textsInput: {
+    height: 120,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 12,
+    color: 'grey',
+    padding: 10,
+    borderColor: 'grey',
   },
   textButton: {
     color: '#fff',
@@ -130,5 +140,22 @@ const style = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     justifyContent: 'center'
-  }
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
 })

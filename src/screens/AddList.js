@@ -1,10 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import React,{useState} from "react";
-import { Image, View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
+import {Image, View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
+import DropdownCategory from '../component/DropdownCategory'
 
 export default function Login({navigation}) {
+    const [value, setValue] = useState(null);
+    const [isFocus, setIsFocus] = useState(false);
+
     const [form, setForm] = useState({
         email: '',
         password: '',
@@ -53,29 +57,43 @@ export default function Login({navigation}) {
         <View style={style.container}>
             <StatusBar />
 
-            <View style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-            <Image
-              source={{ uri: 'https://res.cloudinary.com/agastyo-atallah-al-ardhi/image/upload/v1661444001/TodoApp/accept-request_1_vucipg.svg'}}
-              style={{width:228, height:258}}
-            />
-            </View>
-
-            <Text style={style.header}>Ways <Text style={{color:'#B82020'}}>To</Text><Text style={{color:'#FF5555'}}>DO</Text></Text>
+            <Text style={style.header}>Add List</Text>
 
             <View style={{marginBottom:60}}>
-                <Text style={{textAlign:'center', fontSize:12, paddingStart: 55, paddingEnd: 55}}>
-                    Write your activity and finish your activity. Fast, simple and easy to youse
-                </Text>
+                <View>
+                    <TextInput
+                        style={style.textInput}
+                        placeholder="Name"
+                        onChangeText={(value) => handleOnChange('name', value)}
+                        value={form.name}
+                    />
+                </View>
+
+                <View>
+                    <DropdownCategory/>
+                </View>
+
+                <View>
+                    <TextInput
+                        style={style.textInput}
+                        placeholder="Date"
+                        onChangeText={(value) => handleOnChange('date', value)}
+                        value={form.date}
+                    />
+                </View>
+                <View>
+                    <TextInput
+                        style={style.textsInput}
+                        placeholder="Description"
+                        onChangeText={(value) => handleOnChange('description', value)}
+                        value={form.description}
+                    />
+                </View>
             </View>
 
-            <TouchableOpacity style={style.LoginButton} onPress={() => navigation.navigate("Login")} class='mb-5'>
+            <TouchableOpacity style={style.button} onPress={handleOnPress}>
                 {
-                    isLoading ? <Text style={style.textButton}>Loading ...</Text> : <Text style={style.textButton}>Login</Text>
-                }
-            </TouchableOpacity>
-            <TouchableOpacity style={style.RegisterButton}  onPress={() => navigation.navigate("Register")}>
-                {
-                    isLoading ? <Text style={style.textButton}>Register ...</Text> : <Text style={style.textButton}>Register</Text>
+                    isLoading ? <Text style={style.textButton}>Loading ...</Text> : <Text style={style.textButton}>Add List</Text>
                 }
             </TouchableOpacity>
         </View>
@@ -84,39 +102,54 @@ export default function Login({navigation}) {
 
 // Create Variable for CSS
 const style = StyleSheet.create({
-    container: {
+  container: {
     flex: 1,
     padding: 30,
-    justifyContent: 'center'
   },
   header: {
     color: 'black',
-    fontSize: 35,
+    fontSize: 25,
     fontWeight: 'bold',
-    marginBottom: 15,
-    textAlign:'center'
+    marginBottom: 15
   },
-
+  labelText: {
+    color: 'grey',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 5
+  },
+  textInput: {
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 12,
+    color: 'grey',
+    padding: 10,
+    borderColor: 'grey',
+  },
+  textsInput: {
+    height: 120,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 12,
+    color: 'grey',
+    padding: 10,
+    borderColor: 'grey',
+  },
   textButton: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 15,
     textAlign: 'center'
   },
-  LoginButton: {
+  button: {
     backgroundColor: '#FF5555',
     height: 40,
     width: '100%',
     borderRadius: 5,
-    justifyContent: 'center',
-    marginBottom:10
-  },
-  RegisterButton: {
-    backgroundColor: '#000',
-    opacity:'31%',
-    height: 40,
-    width: '100%',
-    borderRadius: 5,
     justifyContent: 'center'
+  },
+  icon: {
+    marginRight: 5,
   }
 })

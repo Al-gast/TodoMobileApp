@@ -1,31 +1,52 @@
 import * as React from "react";
-import { NavigationContainer, StackActions } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { NativeBaseProvider, extendTheme } from "native-base";
 
-import Login from "./src/screens/Login";
-import Register from "./src/screens/Register";
-import Users from "./src/screens/Users";
-import LandingPage from "./src/screens/LandingPage"
+// Import font with Expo
+import AppLoading from "expo-app-loading";
+import {
+  useFonts,
+  BalsamiqSans_400Regular,
+  BalsamiqSans_400Regular_Italic,
+} from "@expo-google-fonts/balsamiq-sans";
 
-const Stack = createStackNavigator();
+// Import Container
+import Container from './Container'
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="LandingPage" component={LandingPage}
-        options={{headerShown: false}}
-        />
-        <Stack.Screen name="Login" component={Login}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen name="Register" component={Register}
-        options={{headerShown: false}}
-        />
-        <Stack.Screen name="Users" component={Users}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  // Load Font with Expo
+  let [fontsLoaded] = useFonts({
+    BalsamiqSans_400Regular,
+    BalsamiqSans_400Regular_Italic,
+  });
+
+  // Setup Font
+  const fontConfig = {
+    BalsamiqSans: {
+      400: {
+        normal: "BalsamiqSans_400Regular",
+        italic: "BalsamiqSans_400Regular_Italic",
+      },
+    },
+  };
+
+  // Configuration Native Base Custom Theme
+  const theme = extendTheme({
+    fontConfig,
+    fonts: {
+      heading: "BalsamiqSans",
+      body: "BalsamiqSans",
+      mono: "BalsamiqSans",
+    },
+    config: { initialColorMode: "dark" },
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <NativeBaseProvider theme={theme}>
+        <Container />
+      </NativeBaseProvider>
+    );
+  }
 }

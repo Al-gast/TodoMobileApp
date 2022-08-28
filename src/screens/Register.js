@@ -10,7 +10,7 @@ export default function Register({navigation}) {
         email: '',
         password: '',
     });
-    
+
     const handleOnChange = (name, value) => {
         setForm({
             ...form,
@@ -54,14 +54,13 @@ export default function Register({navigation}) {
 
             <View style={{display:'flex', justifyContent:'center', alignItems:'center', marginBottom:35}}>
             <Image
-              source={{ uri: 'https://res.cloudinary.com/agastyo-atallah-al-ardhi/image/upload/v1661432753/TodoApp/Login_Icon_uduhfe.png'}}
-              style={{width:256, height:183}}
+                source={{ uri: 'https://res.cloudinary.com/agastyo-atallah-al-ardhi/image/upload/v1661432753/TodoApp/Login_Icon_uduhfe.png'}}
+                style={{width:256, height:183}}
             />
             </View>
 
             <Text style={style.header}>Register</Text>
             <View>
-                <Text style={style.labelText}>Name</Text>
                 <TextInput
                     style={style.textInput}
                     placeholder="Name"
@@ -70,7 +69,6 @@ export default function Register({navigation}) {
                 />
             </View>
             <View>
-                <Text style={style.labelText}>Email</Text>
                 <TextInput
                     style={style.textInput}
                     placeholder="email"
@@ -80,7 +78,6 @@ export default function Register({navigation}) {
             </View>
 
             <View style={{marginBottom:30}}>
-                <Text style={style.labelText}>Password</Text>
                 <TextInput
                     style={style.textInput}
                     secureTextEntry={true}
@@ -102,7 +99,7 @@ export default function Register({navigation}) {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 30,
     justifyContent: 'center'
   },
   header: {
