@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { Dropdown } from 'react-native-element-dropdown';
-import React,{useState} from "react";
-import {Image, View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
+import React,{useState, useEffect} from "react";
+import { View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
 import { Directions } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 
 const category = [
     {label:'Study', value:'1'},
@@ -13,8 +13,9 @@ const category = [
 ]
 
 export default function Login({navigation}) {
-    const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
+
+    const [data, setData] = React.useState([]);
+    const [dataLoading, setDataLoading] = React.useState(false);
 
     const [form, setForm] = useState({
         name: '',
@@ -56,6 +57,36 @@ export default function Login({navigation}) {
         }
     };
 
+    const getData = async() =>{
+      try {
+          const token = await AsyncStorage.getItem('token');
+          if (token === null) {
+              navigation.navigate("Login")
+          }
+
+          const config = {
+              headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: 'Bearer ' + token
+              },
+          };
+
+          setDataLoading(true);
+
+          const res = await axios.get('https://api.kontenbase.com/query/api/v1/0b5806cc-db6b-4088-bbfc-f6368c72c166/Category', config);
+          setData(res.data)
+          setDataLoading(false)
+
+      } catch (error) {
+          console.log(error);
+          setDataLoading(false)
+      }
+  }
+
+  React.useEffect(()=> {
+      getData()
+  },[data])
+
     return (
         <View style={style.container}>
             <StatusBar />
@@ -80,10 +111,24 @@ export default function Login({navigation}) {
 
             </View>
             <View>
-
                 <Text style={style.header}>List Category</Text>
             </View>
-
+            <View className="mt-4 mx-9 flex flex-row flex-wrap">
+                        <FlatList
+                                numColumns={3}
+                                data={data}
+                                key={item => item.index}
+                                renderItem={({item}) => (
+                                    <View style={{backgroundColor:'#FF5555', width:60, height:20, marginEnd:5, borderRadius:3, marginBottom:5}}>
+                                        <Text style={{color:'white', textAlign:'center'}}>
+                                            {item.name}
+                                        </Text>
+                                    </View>
+                                )}
+                                refreshing={dataLoading}
+                                onRefresh={getData}
+                            />
+                </View>
         </View>
     );
 }
