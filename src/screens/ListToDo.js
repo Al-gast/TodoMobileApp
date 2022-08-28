@@ -26,10 +26,6 @@ export default function Login({navigation}) {
         title: 'Healing',
         desc: 'Sinau masxeh'
     },
-    {
-        title: 'Healing',
-        desc: 'Sinau masxeh'
-    },
 ]
 
 
@@ -82,27 +78,24 @@ export default function Login({navigation}) {
                 </View>
             </View>
             <View>
-                <Text style={style.header}>List Category</Text>
                   <FlatList
                   data={todos}
                   key={item => item.index}
                   renderItem={({item})=>(
                     <TouchableOpacity onPress={()=> navigation.navigate("DetailList")}>
-                      <Text className="font-bold text-[18px] mb-3">{item.title}</Text>
-                                    <Text>{item.desc}</Text>
-                      {/* <View style={style.card}>
-                      <View>
-                      <Text style={{fontWeight: 'bold', marginBottom: 5}}>{item.title}</Text>
-                      <Text style={style.cardDescription}>{item.desc}</Text>
-                      </View>
-                      <View style={{width: 50}}>
-                      <TouchableOpacity style={style.CardTitle}>
-                          <Text style={{fontSize: 10, fontWeight: 'bold', textAlign: 'center'}}>Study</Text>
-                      </TouchableOpacity >
-                      <TouchableOpacity style={style.Omark}>
-                      </TouchableOpacity >
-                  </View>
-                  </View> */}
+                          <View style={style.card}>
+                          <View>
+                          <Text style={{fontWeight: 'bold', marginBottom: 5}}>{item.title}</Text>
+                          <Text style={style.cardDescription}>{item.desc}</Text>
+                          </View>
+                          <View style={{width: 50}}>
+                          <Text style={style.CardTitle}>
+                              <Text style={{fontSize: 10, fontWeight: 'bold', textAlign: 'center'}}>Study</Text>
+                          </Text >
+                          <TouchableOpacity style={style.Omark}>
+                          </TouchableOpacity >
+                          </View>
+                          </View>
                     </TouchableOpacity>
                   )}
                   />

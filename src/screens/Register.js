@@ -38,7 +38,7 @@ export default function Register({navigation}) {
             const value = await AsyncStorage.getItem('token');
             if (value !== null) {
                 console.log(value);
-                navigation.navigate("Users")
+                navigation.navigate("Login")
             }
 
         } catch (error) {

@@ -32,7 +32,7 @@ export default function Login({navigation}) {
 
             const body = JSON.stringify(form);
             setIsLoading(true)
-            const response = await axios.post('https://api.kontenbase.com/query/api/v1/0b5806cc-db6b-4088-bbfc-f6368c72c166/auth/login', body, config);
+            const response = await axios.post('https://api.kontenbase.com/query/api/v1/0b5806cc-db6b-4088-bbfc-f6368c72c166/List', body, config);
             // console.log(response);
             setIsLoading(false)
             if (response) {
@@ -84,6 +84,8 @@ export default function Login({navigation}) {
                 <View>
                     <TextInput
                         style={style.textsInput}
+                        multiline
+                        numberOfLines={6}
                         placeholder="Description"
                         onChangeText={(value) => handleOnChange('description', value)}
                         value={form.description}
@@ -128,7 +130,6 @@ const style = StyleSheet.create({
     borderColor: 'grey',
   },
   textsInput: {
-    height: 120,
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 12,

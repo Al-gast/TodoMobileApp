@@ -17,8 +17,7 @@ export default function Login({navigation}) {
     const [isFocus, setIsFocus] = useState(false);
 
     const [form, setForm] = useState({
-        email: '',
-        password: '',
+        name: '',
     });
 
     const [isLoading, setIsLoading] = useState(false);
@@ -31,26 +30,23 @@ export default function Login({navigation}) {
 
     const handleOnPress = async () => {
         try {
+          const token = await AsyncStorage.getItem('token');
+          if (token === null) {
+              navigation.navigate("Users")
+          }
             const config = {
                 headers: {
                 'Content-type': 'application/json',
+                Authorization: 'Bearer ' + token
                 },
             };
 
             const body = JSON.stringify(form);
             setIsLoading(true)
-            const response = await axios.post('https://api.kontenbase.com/query/api/v1/0b5806cc-db6b-4088-bbfc-f6368c72c166/auth/login', body, config);
-            // console.log(response);
-            setIsLoading(false)
-            if (response) {
-                await AsyncStorage.setItem('token', response.data.token);
-            }
+            const response = await axios.post('https://api.kontenbase.com/query/api/v1/0b5806cc-db6b-4088-bbfc-f6368c72c166/Category', body, config);
 
-            const value = await AsyncStorage.getItem('token');
-            if (value !== null) {
-                console.log(value);
-                navigation.navigate("Users")
-            }
+            setIsLoading(false)
+            alert('Category Added Successfully')
 
         } catch (error) {
             console.log(error);
