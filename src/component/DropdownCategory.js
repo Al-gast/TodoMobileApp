@@ -3,11 +3,6 @@ import React, { useState } from 'react';
   import { Dropdown } from 'react-native-element-dropdown';
   import AntDesign from 'react-native-vector-icons/AntDesign';
 
-  const data = [
-    { label: 'Study', value: '1' },
-    { label: 'Home work', value: '2' },
-    { label: 'Workout', value: '3' },
-  ];
 
   const CategoryDropdown = () => {
     const [value, setValue] = useState(null);
@@ -24,6 +19,41 @@ import React, { useState } from 'react';
       return null;
     };
 
+    const [data, setData] = useState([]);
+    const [dataLoading, setDataLoading] = useState(false);
+
+    const getData = async() =>{
+      try {
+          const token = await AsyncStorage.getItem('token');
+          if (token === null) {
+              navigation.navigate("Login")
+          }
+
+          const config = {
+              headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: 'Bearer ' + token
+              },
+          };
+
+          setDataLoading(true);
+
+          const res = await axios.get('https://api.kontenbase.com/query/api/v1/0b5806cc-db6b-4088-bbfc-f6368c72c166/Category', config);
+          setData(res.data)
+          setDataLoading(false)
+        } catch (error) {
+          console.log(error);
+          setDataLoading(false)
+        }
+      }
+      React.useEffect(()=> {
+        getData()
+      },[data])
+
+      const datas = data.map((item) => {
+        return {label: item.name, value: item.name}
+      })
+
     return (
       <View style={styles.container}>
         {renderLabel()}
@@ -33,11 +63,11 @@ import React, { useState } from 'react';
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
-          data={data}
+          data={datas}
           search
           width={'100%'}
           maxHeight={300}
-          labelField="label"
+          labelField={(item.label)}
           valueField="value"
           placeholder={!isFocus ? 'Category' : '...'}
           searchPlaceholder="Search..."

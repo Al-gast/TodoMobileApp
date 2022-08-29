@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { FlatList } from "react-native-gesture-handler";
+// import { FlatList } from "react-native-gesture-handler";
 import React,{useState} from "react";
-import {Image, View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
+import {Image, View, StyleSheet, Text, TextInput, TouchableOpacity, FlatList } from "react-native";
 
 import axios from 'axios'
 import TodoCategory from "../component/TodoCategory";
@@ -77,7 +77,6 @@ export default function Login({navigation}) {
                         </View>
                 </View>
             </View>
-            <View>
                   <FlatList
                   data={todos}
                   key={item => item.index}
@@ -99,8 +98,6 @@ export default function Login({navigation}) {
                     </TouchableOpacity>
                   )}
                   />
-            </View>
-
         </View>
     );
 }
